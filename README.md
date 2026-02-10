@@ -69,33 +69,33 @@ tests/Unit/Services/Pricing/
     ├── FreightModifierTest.php
     └── IcmsTaxStrategyTest.php
 ```
-### Instalação do projeto
+## Instalação do projeto
 
-# Clone Repositório
+## Clone Repositório
 ```
 git clone git@github.com:rafPH1998/santri-web-teste.git
 cd santri-web-teste
 ```
 
-# Suba os containers do projeto
+## Suba os containers do projeto
 
 ```
 docker-compose up -d
 ```
 
-# Entre dentro do container
+## Entre dentro do container
 
 ```
  docker compose exec app bash
 ```
 
-# Rode o comando abaixo para gerar as dependencias do projeto
+## Rode o comando abaixo para gerar as dependencias do projeto
 
 ```
 composer install
 ```
 
-# Gere a key do projeto
+## Gere a key do projeto
 
 ```
 php artisan key:generate
@@ -149,10 +149,9 @@ php artisan key:generate
 
 ## Testes
 
+### entre dentro do container e rode (docker compose exec app bash)
 ```bash
-php artisan test --filter=Pricing
-# ou
-./vendor/bin/phpunit tests/Unit/Services/Pricing
+php artisan test --testsuite=Unit --filter=Pricing
 ```
 
 ## Usando o Calculator direto (sem API)
@@ -176,24 +175,4 @@ $result = $calculator->calculate($dto);
 
 echo $result->totalPrice; // preço total calculado
 print_r($result->toArray()); // todos os detalhes
-```
-
-## Extensibilidade
-
-Para adicionar uma nova regra de desconto, basta implementar `DiscountStrategyInterface` e adicionar ao calculator:
-
-```php
-class SeasonalDiscountStrategy implements DiscountStrategyInterface
-{
-    public function calculate(PriceCalculationDTO $dto): float
-    {
-        // sua lógica aqui
-        return 3.0; // 3% de desconto
-    }
-
-    public function getName(): string { return 'seasonal_discount'; }
-}
-
-// Uso:
-$calculator->addDiscountStrategy(new SeasonalDiscountStrategy());
 ```
