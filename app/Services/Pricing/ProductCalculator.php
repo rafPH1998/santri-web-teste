@@ -12,6 +12,11 @@ use App\Services\Pricing\Modifiers\FreightModifier;
 use App\Services\Pricing\Strategies\DiscountStrategyInterface;
 use App\Services\Pricing\Strategies\TaxStrategyInterface;
 
+/**
+ * Classe principal que orquestra o cálculo de preços.
+ * Aplica margem de lucro, descontos (via strategies), frete e impostos.
+ * Os cálculos são cacheados para evitar reprocessamento.
+ */
 class ProductCalculator
 {
     /** @var DiscountStrategyInterface[] */

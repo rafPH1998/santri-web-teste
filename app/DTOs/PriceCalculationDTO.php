@@ -6,6 +6,10 @@ namespace App\DTOs;
 
 use App\Exceptions\InvalidCalculationDataException;
 
+/**
+ * DTO que encapsula os dados necessários para cálculo de preço
+ * Valida automaticamente os campos no construtor
+ */
 class PriceCalculationDTO
 {
     public function __construct(

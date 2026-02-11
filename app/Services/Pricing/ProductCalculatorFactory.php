@@ -11,6 +11,9 @@ use App\Services\Pricing\Strategies\IcmsTaxStrategy;
 use App\Services\Pricing\Strategies\PremiumDiscountStrategy;
 use App\Services\Pricing\Strategies\QuantityDiscountStrategy;
 
+/**
+ * Factory que cria um ProductCalculator já configurado com todas as strategies padrão.
+ */
 class ProductCalculatorFactory
 {
     /**

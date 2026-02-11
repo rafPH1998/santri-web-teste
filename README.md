@@ -34,7 +34,7 @@ Biblioteca de cálculo de preços para e-commerce B2B de material de construçã
 
 > Os descontos são somados (não compostos). Ex: atacado + premium = 10% total.
 
-## Estrutura dos Arquivos
+## Estrutura dos Arquivos (aplicagem dos patters)
 
 ```
 app/
@@ -93,6 +93,12 @@ docker-compose up -d
 
 ```
 composer install
+```
+
+## Crie o Arquivo .env
+
+```
+cp .env.example .env
 ```
 
 ## Gere a key do projeto

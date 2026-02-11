@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
+/**
+ * Resultado do cálculo de preço.
+ * Contém todos os valores calculados e um breakdown detalhado pra debug.
+ */
 class PriceCalculationResult
 {
     public function __construct(

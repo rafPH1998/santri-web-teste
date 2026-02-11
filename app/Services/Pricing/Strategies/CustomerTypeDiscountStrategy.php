@@ -6,6 +6,10 @@ namespace App\Services\Pricing\Strategies;
 
 use App\DTOs\PriceCalculationDTO;
 
+/**
+ * Desconto baseado no tipo de cliente.
+ * Varejo: 0%, Atacado: 5%, Revendedor: 8%
+ */
 class CustomerTypeDiscountStrategy implements DiscountStrategyInterface
 {
     // Tabela de descontos por tipo de cliente (%)
