@@ -77,10 +77,16 @@ git clone git@github.com:rafPH1998/santri-web-teste.git
 cd santri-web-teste
 ```
 
+## Crie o Arquivo .env
+
+```
+cp .env.example .env
+```
+
 ## Suba os containers do projeto
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Entre dentro do container
@@ -89,23 +95,57 @@ docker-compose up -d
  docker compose exec app bash
 ```
 
-## Rode o comando abaixo para gerar as dependencias do projeto
+## Dentro do container, rode o comando abaixo para gerar as dependencias do projeto
 
 ```
 composer install
 ```
 
-## Crie o Arquivo .env
-
-```
-cp .env.example .env
-```
-
-## Gere a key do projeto
+## Gere a key do projeto ainda dentro do container
 
 ```
 php artisan key:generate
 ```
+
+# Caso gere erro ao rodar composer install, é importante saber o id que se encontra o seu usuário
+
+![alt text](image.png)
+
+Verifique se o ID esta igual ao do arquivo Dockerfile, caso não estiver, deixe o ID do dockerfile similar ao do usuario. Rode docker compose up --build para subir os container de novo e tente o processo novamente.
+
+![alt text](image-1.png)
+
+----------------------------------------------------------------------------------------------------------------------
+## Testes
+
+### Ainda dentro do container, rode o comando abaixo para rodar os testes da aplicação
+```bash
+php artisan test --testsuite=Unit --filter=Pricing
+```
+
+## Usando o Calculator direto (sem API)
+
+```php
+use App\DTOs\PriceCalculationDTO;
+use App\Services\Pricing\ProductCalculatorFactory;
+
+$dto = new PriceCalculationDTO(
+    basePrice: 100.0,
+    quantity: 50,
+    customerType: 'atacado',
+    state: 'SP',
+    weightKg: 10.0,
+    isPremium: true,
+    profitMargin: 15.0,
+);
+
+$calculator = ProductCalculatorFactory::createDefault();
+$result = $calculator->calculate($dto);
+
+echo $result->totalPrice; // preço total calculado
+print_r($result->toArray()); // todos os detalhes
+```
+
 
 ## Uso da API
 
@@ -153,32 +193,3 @@ php artisan key:generate
 
 **Estados:** sigla em maiúsculo (SP, RJ, MG, RS, PR...)
 
-## Testes
-
-### entre dentro do container e rode (docker compose exec app bash)
-```bash
-php artisan test --testsuite=Unit --filter=Pricing
-```
-
-## Usando o Calculator direto (sem API)
-
-```php
-use App\DTOs\PriceCalculationDTO;
-use App\Services\Pricing\ProductCalculatorFactory;
-
-$dto = new PriceCalculationDTO(
-    basePrice: 100.0,
-    quantity: 50,
-    customerType: 'atacado',
-    state: 'SP',
-    weightKg: 10.0,
-    isPremium: true,
-    profitMargin: 15.0,
-);
-
-$calculator = ProductCalculatorFactory::createDefault();
-$result = $calculator->calculate($dto);
-
-echo $result->totalPrice; // preço total calculado
-print_r($result->toArray()); // todos os detalhes
-```
